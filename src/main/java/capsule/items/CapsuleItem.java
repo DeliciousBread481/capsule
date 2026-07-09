@@ -207,23 +207,25 @@ public class CapsuleItem extends Item {
      */
     public static int getSize(ItemStack capsule) {
         int size = 1;
+        if (!(capsule.getItem() instanceof CapsuleItem)) {
+            return size;
+        }
         if (!capsule.isEmpty() && capsule.hasTag() && capsule.getTag().contains("size")) {
             size = capsule.getTag().getInt("size");
         }
         if (size > CAPSULE_MAX_CAPTURE_SIZE) {
             size = CAPSULE_MAX_CAPTURE_SIZE;
-            capsule.getTag().putInt("size", size);
-            LOGGER.error("Capsule sizes are capped to " + CAPSULE_MAX_CAPTURE_SIZE + ". Resized to : " + size);
         } else if (size % 2 == 0) {
             size++;
-            capsule.getTag().putInt("size", size);
-            LOGGER.error("Capsule size must be an odd number to achieve consistency on deployment. Resized to : " + size);
         }
 
         return size;
     }
 
     public static void setSize(ItemStack capsule, int size) {
+        if (!(capsule.getItem() instanceof CapsuleItem)) {
+            return;
+        }
         if (size > CAPSULE_MAX_CAPTURE_SIZE) {
             size = CAPSULE_MAX_CAPTURE_SIZE;
             LOGGER.warn("Capsule sizes are capped to " + CAPSULE_MAX_CAPTURE_SIZE + ". Resized to : " + size);
