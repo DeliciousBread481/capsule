@@ -251,7 +251,11 @@ public class CapsuleTemplateRenderer {
                             list2.add(Pair.of(blockpos, template$blockinfo.nbt()));
 
                             if (fluidstate != null && blockstate.getBlock() instanceof LiquidBlockContainer) {
-                                ((LiquidBlockContainer) blockstate.getBlock()).placeLiquid(templateWorld, blockpos, blockstate, fluidstate);
+                                try {
+                                    ((LiquidBlockContainer) blockstate.getBlock()).placeLiquid(templateWorld, blockpos, blockstate, fluidstate);
+                                } catch (Throwable t) {
+                                
+                                }
                                 if (!fluidstate.isSource()) {
                                     list1.add(blockpos);
                                 }
@@ -286,7 +290,11 @@ public class CapsuleTemplateRenderer {
                             BlockState blockstate2 = templateWorld.getBlockState(blockpos2);
                             Block block = blockstate2.getBlock();
                             if (block instanceof LiquidBlockContainer) {
-                                ((LiquidBlockContainer) block).placeLiquid(templateWorld, blockpos2, blockstate2, fluidstate2);
+                                try {
+                                    ((LiquidBlockContainer) block).placeLiquid(templateWorld, blockpos2, blockstate2, fluidstate2);
+                                } catch (Throwable t) {
+                                
+                                }
                                 flag = true;
                                 iterator.remove();
                             }
